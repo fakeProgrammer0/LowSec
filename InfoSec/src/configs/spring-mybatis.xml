@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-autowire="byName">
+
+	<!-- 定义数据源Bean，使用C3P0数据源实现 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<!--指定连接数据库的驱动 -->
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<!--指定连接数据库的URL -->
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<!--指定连接数据库的用户名 -->
+		<property name="user" value="${jdbc.username}" />
+		<!--指定连接数据库的密码 -->
+		<property name="password" value="${jdbc.password}" />
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="${cpool.checkoutTimeout}" />
+		<!--指定连接数据库连接池的初始化连接数 -->
+		<property name="initialPoolSize" value="${cpool.minPoolSize}" />
+		<!--指定连接数据库连接池的最小连接数 -->
+		<property name="minPoolSize" value="${cpool.minPoolSize}" />
+		<!--指定连接数据库连接池的最大连接数 -->
+		<property name="maxPoolSize" value="${cpool.maxPoolSize}" />
+		<!--指定连接数据库连接池的连接的最大空闲时间 -->
+		<property name="maxIdleTime" value="${cpool.maxIdleTime}" />
+		<property name="acquireIncrement" value="${cpool.acquireIncrement}" />
+		<property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}" />
+	</bean>
+
+	<!-- 数据源MyBatis的SqlSessionFactory工厂类 -->
+	<bean id="sqlSessionFactoryInfosec" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:configs/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 自动扫描infosec.dao包下的接口及其实现类，并注册成spring ioc中的Bean-->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>infosec.dao</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryInfosec" />
+	</bean>
+
+</beans>
