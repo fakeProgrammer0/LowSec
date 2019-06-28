@@ -43,7 +43,7 @@ FLUSH PRIVILEGES;
 查看该账户拥有的权限：
 
 ```mysql
-SHOW GRANTS FOR 'infosec-prod';
+SHOW GRANTS FOR 'infosec-prod'@'localhost';
 ```
 
 

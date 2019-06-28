@@ -1,6 +1,0 @@
-eclipse.preferences.version=1
-encoding//sql/20160503-infosec.sql=UTF-8
-encoding//src/configs/database.properties=UTF-8
-encoding//src/infosec/controller/UserController.java=UTF-8
-encoding//src/infosec/dao/UserMapper.java=UTF-8
-encoding//src/infosec/model/User.java=UTF-8

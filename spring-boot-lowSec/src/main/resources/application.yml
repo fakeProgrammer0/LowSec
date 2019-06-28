@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ENC(HSlkMGHT9+RMEAB+q8hJ//Qp3wFxlHMDITwYDV46GYeLZLklZCVC2gjnPU5/pVrMY98gewsnWrykx2rfJaAEdUFO4EM3tCz4G+69OJTUNvHxMjAqDnSGITWbDb6Rjl7No8SzoPs4CK7HYxuS4aQ6zPWKYHoA7ba+uBPdReLLBC5H/iJxWJ4D+mCYc/YXRYkg6mDv1pBpey0=)
+    username: ENC(qW6TuqFdsRHEcSLIAz3fnzpU6DAcLAOp)
+    password: ENC(baNRoui2GgJk2BPRcIdeayLMgskT3bg7)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: "top.dadagum.lowsec.dao"
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_KEY}
+

@@ -1,5 +1,7 @@
 package top.dadagum.lowsec.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import top.dadagum.security.model.User;
 
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.List;
  * @Author Honda
  * @Date 2019/6/28 11:28
  **/
+@Mapper
+@Component
 public interface UserMapper {
 
     /**
