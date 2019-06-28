@@ -1,6 +1,7 @@
 package top.dadagum.lowsec.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import top.dadagum.security.model.User;
 
@@ -30,4 +31,11 @@ public interface UserMapper {
      * @return
      */
     public User getUser(String id);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param name
+     * @return
+     */
+    User getUserByName(@Param("name") String name);
 }

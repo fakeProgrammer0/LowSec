@@ -31,5 +31,9 @@
 	<select id="getUser" resultMap="userMap" parameterType="java.lang.String">
 		select * from user where id=#{id}
 	</select>
+	
+	<select id="getUserByName" resultMap="userMap" parameterType="string">
+		select * from user where username=#{name}
+	</select>
 
 </mapper>

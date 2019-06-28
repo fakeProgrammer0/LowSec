@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import top.dadagum.security.constant.Roles;
 
 /**
  * @Description TODO
@@ -23,27 +24,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/index").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/users", "/user/*").hasRole(Roles.ROLE_ADMIN.getRole())
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
                 .and()
-                    .logout()
-                    .permitAll();
+                .logout()
+                .permitAll();
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
 
-        return new InMemoryUserDetailsManager(user);
-    }
 }
