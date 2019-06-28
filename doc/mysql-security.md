@@ -14,7 +14,16 @@ CREATE USER 'infosec-dev'@'%' IDENTIFIED BY 'xxxxxxxx';
 
 ```mysql
 GRANT SELECT ON `infosec`.`user` TO 'infosec-dev';
+FLUSH PRIVILEGES;
 ```
+
+查看该账户拥有的权限：
+
+```mysql
+SHOW GRANTS FOR 'infosec-dev';
+```
+
+<img src="../assets/mysql-infosec-dev-grants.png">
 
 ### 1.2.创建生产环境账号
 
@@ -31,9 +40,14 @@ GRANT SELECT ON `infosec`.`user` TO 'infosec-prod'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
+查看该账户拥有的权限：
+
+```mysql
+SHOW GRANTS FOR 'infosec-prod';
+```
 
 
-
+<img src="../assets/mysql-infosec-prod-grants.png">
 
 
 
