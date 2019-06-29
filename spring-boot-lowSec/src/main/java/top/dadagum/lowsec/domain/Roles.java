@@ -7,7 +7,7 @@ package top.dadagum.lowsec.domain;
  **/
 public enum Roles {
 
-    ROLE_ADMIN("ADMIN"), ROLE_USER("USER");
+    ROLE_ADMIN("ROLE_ADMIN"), ROLE_USER("ROLE_USER");
 
     private String role;
 

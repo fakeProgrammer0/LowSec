@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>InfoSec: 用户信息</title>
+</head>
+<body>
+<a th:href="@{/index}">首页</a>
+<br>
+<br>
+<h1>用户信息</h1>
+<br>
+<table border="1">
+    <tr>
+        <th>登录名</th>
+        <th>显示名</th>
+        <th>角色</th>
+    </tr>
+    <tr>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.showname}"></td>
+        <td th:text="${user.rolecode}"></td>
+    </tr>
+
+</table>
+</body>
+</html>
