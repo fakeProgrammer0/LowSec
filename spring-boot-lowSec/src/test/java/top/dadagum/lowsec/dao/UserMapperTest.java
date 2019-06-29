@@ -3,7 +3,7 @@ package top.dadagum.lowsec.dao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.dadagum.lowsec.AppRunnerTest;
-import top.dadagum.security.model.User;
+import top.dadagum.lowsec.domain.User;
 
 import java.util.List;
 

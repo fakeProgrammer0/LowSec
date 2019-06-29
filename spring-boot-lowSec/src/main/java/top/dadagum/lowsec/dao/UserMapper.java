@@ -3,7 +3,7 @@ package top.dadagum.lowsec.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import top.dadagum.security.model.User;
+import top.dadagum.lowsec.domain.User;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public List<User> listUsers();
+    List<User> listUsers();
 
 
     /**
@@ -30,8 +30,8 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    public User getUser(String id);
-
+    User getUser(String id);
+    
     /**
      * 根据用户名获取用户信息
      * @param name

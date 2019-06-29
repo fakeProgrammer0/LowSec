@@ -1,10 +1,11 @@
-package top.dadagum.lowsec.lowsec;
+package top.dadagum.lowsec.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Component;
 import top.dadagum.lowsec.dao.UserMapper;
 
@@ -21,9 +22,10 @@ public class DbUserDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        top.dadagum.security.model.User userInfo = userMapper.getUserByName(username);
-
-        return User.builder()
+        top.dadagum.lowsec.domain.User userInfo = userMapper.getUserByName(username);
+    
+        //noinspection deprecation
+        return User.builder().passwordEncoder(NoOpPasswordEncoder.getInstance()::encode)
                 .username(username)
                 .password(userInfo.getPassword())
                 .roles(userInfo.getRolecode())

@@ -5,28 +5,37 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Repeat;
 import top.dadagum.lowsec.AppRunnerTest;
 
 public class EncryptTest extends AppRunnerTest
 {
-    @Autowired
-    private StringEncryptor encryptor;
-    
-    @Value("${jasypt.encryptor.password}")
-    private String jasypt_key;
+    @Test
+    @Repeat(value = 20)
+    public void testEncrypt()
+    {
+        String password = "123456";
+        String salt = BCrypt.gensalt();
+        String encoded_password = BCrypt.hashpw(password, salt);
+        System.out.println("password: " + password);
+        System.out.println("    salt: " + salt);
+        System.out.println("  hashed: " + encoded_password);
+        Assert.assertTrue(BCrypt.checkpw(password,encoded_password));
+        Assert.assertTrue(encoded_password.startsWith(salt));
+    }
     
     @Test
-    public void generateKeys()
+    @Repeat(value = 2)
+    public void testBCrypt()
     {
-//        System.out.println("jasypt_key: " + jasypt_key);
-        
-        String ENC_url = encryptor.encrypt("jdbc:mysql://139.196.162.127:3306/infosec?useUnicode=true&characterEncoding=utf-8&requireSSL=true&useSSL=true&verifyServerCertificate=false");
-        String ENC_username = encryptor.encrypt("infosec-dev");
-        String ENC_password = encryptor.encrypt("InfoSec@2019");
-        System.out.printf("url: ENC(%s)\n", ENC_url);
-        System.out.printf("username: ENC(%s)\n", ENC_username);
-        System.out.printf("password: ENC(%s)\n", ENC_password);
-        Assert.assertTrue(ENC_username.length() > 0);
-        Assert.assertTrue(ENC_password.length() > 0);
+        PasswordEncoder encoder1 = new BCryptPasswordEncoder();
+        PasswordEncoder encoder2 = new BCryptPasswordEncoder();
+        String password = "123456";
+        String hashed = encoder1.encode(password);
+        System.out.println("  hashed: " + hashed);
+        Assert.assertTrue(encoder2.matches(password, hashed));
     }
 }

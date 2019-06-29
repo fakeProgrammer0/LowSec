@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import top.dadagum.lowsec.dao.UserMapper;
-import top.dadagum.security.model.User;
+import top.dadagum.lowsec.domain.User;
 
 import java.util.List;
 
@@ -75,6 +75,7 @@ public class UserController {
         }catch(Exception ex){
             return "error";
         }
-
     }
+    
+    
 }

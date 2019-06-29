@@ -1,4 +1,4 @@
-package top.dadagum.security.constant;
+package top.dadagum.lowsec.domain;
 
 /**
  * @Description TODO
@@ -11,7 +11,7 @@ public enum Roles {
 
     private String role;
 
-    private Roles(String role) {
+    Roles(String role) {
         this.role = role;
     }
 

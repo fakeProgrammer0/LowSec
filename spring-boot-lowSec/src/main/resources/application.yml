@@ -8,7 +8,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: "top.dadagum.lowsec.dao"
+  type-aliases-package: "top.dadagum.lowsec.domain"
 
 jasypt:
   encryptor:
