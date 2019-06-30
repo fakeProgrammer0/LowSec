@@ -4,6 +4,8 @@
 
 ### 1.1.创建开发账号
 
+为了避免从互联网访问 MySQL 数据库，确保只有特定主机才拥有访问特权。
+
 创建 `infosec-dev` 账号，允许特定ip网络内的远程连接。
 
 ```mysql
@@ -46,10 +48,15 @@ FLUSH PRIVILEGES;
 SHOW GRANTS FOR 'infosec-prod'@'localhost';
 ```
 
-
 <img src="../assets/mysql-infosec-prod-grants.png">
 
+### 1.3.移除匿名账户和废弃账户
 
+有些MySQL数据库的匿名用户的口令为空。因而，任何人都可以连接到这些数据库。可以用下面的命令进行检查：
+
+~~~sql
+select * from mysql.user where user="";
+~~~
 
 
 
