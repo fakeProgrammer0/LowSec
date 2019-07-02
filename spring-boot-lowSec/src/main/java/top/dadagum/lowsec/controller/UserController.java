@@ -8,12 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import top.dadagum.lowsec.dao.UserMapper;
 import top.dadagum.lowsec.domain.CustomUser;
 import top.dadagum.lowsec.domain.Roles;
 import top.dadagum.lowsec.domain.User;
 import top.dadagum.lowsec.utils.AuthenticationFacade;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,8 +30,11 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("/hello")
-    public String hello() {
-        return "hello world";
+    public String hello(ModelMap modelMap) {
+        Authentication info = userInfo.getAuthentication();
+        String username = info == null ? "world" : info.getName();
+        modelMap.addAttribute("username", username);
+        return "hello";
     }
 
     @Autowired
@@ -43,12 +46,13 @@ public class UserController {
      * @param model (Spring MVC会为程序初始化model对象，运行时注入)
      * @return
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/users")
     public String listUsers(ModelMap model){
         try{
             // 从数据库获取所有用户
             List<User> users = userMapper.listUsers();
-            System.out.println(users);
+//            System.out.println(users);
             // 将数据model中，该model有Spring MVC框架维护
             // 在整个request生命周前内有效（下文user_list_servlet中有效）
             model.addAttribute("users", users);

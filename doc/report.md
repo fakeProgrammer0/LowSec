@@ -261,6 +261,18 @@ server:
 
 ![1561833901986](D:\MyData\Code\Github\LowSec\doc\assets\1561833901986.png)
 
+当用户再次用浏览器登录时，选择特定的客户端证书向服务器表明身份。
+
+![1561856811352](D:\MyData\Code\Github\LowSec\doc\assets\1561856811352.png)
+
+退出登录，清空缓存的账户信息。
+
+![1561857096090](D:\MyData\Code\Github\LowSec\doc\assets\1561857096090.png)
+
+点击查看用户列表，可直接访问服务，数字证书双向认证成功。
+
+![1561857137660](D:\MyData\Code\Github\LowSec\doc\assets\1561857137660.png)
+
 ### 3.1.数字证书双向认证的优缺点
 
 优点：

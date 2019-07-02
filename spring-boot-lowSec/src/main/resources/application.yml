@@ -4,11 +4,23 @@ spring:
     username: ENC(qW6TuqFdsRHEcSLIAz3fnzpU6DAcLAOp)
     password: ENC(baNRoui2GgJk2BPRcIdeayLMgskT3bg7)
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: "top.dadagum.lowsec.domain"
+
+server:
+  ssl:
+    key-store-type: JKS
+    key-store: classpath:keystore.jks
+    key-store-password: ${JASYPT_KEY}
+    key-alias: localhost
+    key-password: ${JASYPT_KEY}
+    enabled: true
+    trust-store: classpath:truststore.jks
+    trust-store-password: ${JASYPT_KEY}
+    client-auth: need
+  port: 8080
 
 jasypt:
   encryptor:

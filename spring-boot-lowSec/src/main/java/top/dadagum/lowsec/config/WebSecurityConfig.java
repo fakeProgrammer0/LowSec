@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,15 +18,24 @@ import top.dadagum.lowsec.domain.Roles;
  **/
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
+    @Autowired
+    private X509UserDetails x509UserDetails;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private DbUserDetails dbUserDetails;
     
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/", "/index", "/hello").permitAll()
                 .antMatchers("/users").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -34,14 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll().
+                and().
+                x509().
+                subjectPrincipalRegex("O=(LowSec.*)"). // username == cert.O
+                userDetailsService(x509UserDetails);
     }
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private DbUserDetails dbUserDetails;
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception

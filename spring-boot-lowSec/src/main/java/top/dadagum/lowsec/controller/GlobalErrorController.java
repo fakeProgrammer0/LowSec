@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2019/6/29 18:04
  **/
 @Controller
-public class MyErrorController implements ErrorController {
+public class GlobalErrorController implements ErrorController {
 
     @GetMapping("/error")
     public String handleError(HttpServletRequest request) {
